@@ -21,7 +21,7 @@ export class PokemonService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
   // GET
-  getPokemonList(limit): Observable<PokemonList[]> {
+  getPokemonList(limit: number): Observable<PokemonList[]> {
     return  this.httpClient.get<PokemonList[]>(`${this.url}/pokemon?&limit=${limit}`)
     .pipe(
       map(response => response[`results`]),
@@ -30,8 +30,8 @@ export class PokemonService {
     );
   }
   // GET BY ID
-  getPokemonById(nameID: string): Observable<Pokemon[]> {
-    return this.httpClient.get<Pokemon[]>(`${this.url}/pokemon/${nameID}`)
+  getPokemonById(nameID: string): Observable<Pokemon> {
+    return this.httpClient.get<Pokemon>(`${this.url}/pokemon/${nameID}`)
     .pipe(
       map(response => response),
       retry(2),
@@ -39,7 +39,7 @@ export class PokemonService {
     );
   }
   // ERRORS
-  handleError(error: HttpErrorResponse): Observable<[]>  {
+  handleError(error: HttpErrorResponse): Observable<any>  {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;

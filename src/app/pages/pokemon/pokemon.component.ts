@@ -9,12 +9,12 @@ import { Pokemon } from '../../models/pokemon.model';
   styleUrls: ['./pokemon.component.scss']
 })
 export class PokemonComponent implements OnInit {
-  pokemon;
+  pokemon: Pokemon;
 
   constructor(private pokemonService: PokemonService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.pokemonService.getPokemonById(this.route.snapshot.params[`id`]).subscribe((pokemon: Pokemon[]) => {
+    this.pokemonService.getPokemonById(this.route.snapshot.params[`id`]).subscribe((pokemon: Pokemon) => {
       this.pokemon = pokemon;
     });
   }

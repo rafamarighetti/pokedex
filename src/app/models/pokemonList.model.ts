@@ -1,6 +1,6 @@
 export interface PokemonList {
   name: string;
-  url?: string;
-  types?;
-  image?;
+  url: string;
+  types?: string;
+  image?: string;
 }

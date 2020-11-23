@@ -14,7 +14,7 @@ export class DefaultComponent implements OnInit {
   pokemonList: PokemonList[];
   pokemons = [];
   limit = 156;
-  optionsSort: string[] = ["A a Z", "Z a A"]
+  optionsSort: string[] = ["A a Z", "Z a A"];
   sortSelected: string;
 
   selectOrder(option): void {
@@ -36,18 +36,16 @@ export class DefaultComponent implements OnInit {
   ngOnInit(): void {
     this.pokemonService.getPokemonList(this.limit).subscribe((pokemons: PokemonList[]) => {
       this.pokemonList = pokemons;
-
-      for (let i = 0; i < this.limit; i++){
-        this.pokemonService.getPokemonById((this.pokemonList[i].name)).subscribe((pokemon: Pokemon[]) => {
+      pokemons.map(pokemonInfo => {
+        this.pokemonService.getPokemonById((pokemonInfo.name)).subscribe((pokemon: Pokemon) => {
           this.pokemons.push({
-            name: this.pokemonList[i].name,
-            image:  pokemon[`sprites`].other.dream_world.front_default,
-            types: pokemon[`types`]
+            name: pokemon.name,
+            image:  pokemon.sprites.other.dream_world.front_default,
+            types: pokemon.types
           });
         });
-      }
+      });
     });
   }
-
 }
 
